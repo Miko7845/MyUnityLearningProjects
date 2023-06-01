@@ -1,24 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DetectCollisions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    ScoreManager scoreManager;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        scoreManager = GameObject.Find("GameScoreManager").GetComponent<ScoreManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Destroy(other.gameObject);
+        if(other.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
+            scoreManager.IncrementScore();
+        }
     }
 }

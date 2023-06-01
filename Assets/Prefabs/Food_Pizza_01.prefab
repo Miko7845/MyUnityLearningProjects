@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7325804351570078624}
   - component: {fileID: 7325804351571372928}
   - component: {fileID: 7325804351572502848}
-  - component: {fileID: 7325804350768735109}
-  - component: {fileID: -3431844557987450131}
   - component: {fileID: 3544728107384631040}
   - component: {fileID: 1448021513970840973}
+  - component: {fileID: 7325804350768735109}
+  - component: {fileID: -3431844557987450131}
   - component: {fileID: 3601810346072109497}
   m_Layer: 0
   m_Name: Food_Pizza_01
@@ -88,31 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7325804350768735109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7325804351570573184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dee9347940e64342b5d5f60174d6d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 40
---- !u!114 &-3431844557987450131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7325804351570573184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afc0d4bf255508d4cb8924ca9af56f9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &3544728107384631040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -142,6 +117,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7325804350768735109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7325804351570573184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dee9347940e64342b5d5f60174d6d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 40
+--- !u!114 &-3431844557987450131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7325804351570573184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc0d4bf255508d4cb8924ca9af56f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3601810346072109497
 MonoBehaviour:
   m_ObjectHideFlags: 0
