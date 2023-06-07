@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    private float speed = 30;
+    private float speed = 25;
+    private float dashSpeed = 45;
     private PlayerController playerControllerScript;
     private float leftBound = -15;
+    
 
     void Start()
     {
@@ -15,9 +15,15 @@ public class MoveLeft : MonoBehaviour
 
     void Update()
     {
-        if (playerControllerScript.gameOver == false)
+        if (playerControllerScript.gameOver == false && !Input.GetKey(KeyCode.LeftControl) && playerControllerScript.positionToMoveTo.x <= playerControllerScript.transform.position.x)
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
+            playerControllerScript.score += 1 * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.LeftControl) && !playerControllerScript.gameOver && playerControllerScript.positionToMoveTo.x <= playerControllerScript.transform.position.x)
+        {
+            transform.Translate(Vector3.left * Time.deltaTime * dashSpeed);
+            playerControllerScript.score += 3 * Time.deltaTime;
         }
 
         if (transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
