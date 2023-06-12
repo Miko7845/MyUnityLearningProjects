@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody playerRb;                                                             // Rigidbody component of the player
-    private GameObject focalPoint;                                                          // Focal point of the camera
-    public float speed = 5.0f;                                                              // Speed of the player
+    private Rigidbody playerRb;                                                            // Rigidbody component of the player
+    private GameObject focalPoint;                                                         // Focal point of the camera
+    public float speed = 5.0f;                                                             // Speed of the player
 
     void Start()
     {
