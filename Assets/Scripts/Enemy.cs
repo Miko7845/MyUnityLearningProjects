@@ -16,5 +16,11 @@ public class Enemy : MonoBehaviour
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;        // The direction of the enemy to the player, in Vector3.
         enemyRb.AddForce(lookDirection * speed);                                                    // Move the enemy towards the player.
+
+        // Enemies are destroyed when they fall.
+        if (transform.position.y < -8)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody playerRb;                                                            // Rigidbody component of the player
-    private GameObject focalPoint;                                                         // Focal point of the camera
-    public GameObject powerupIndicator;
-    public float speed = 5.0f;                                                             // Speed of the player
-    public bool hasPowerup = false;
+    private Rigidbody playerRb;
+    private GameObject focalPoint;                                                              // Focal point of the camera
+    public GameObject powerupIndicator;                                                         
+    public float speed = 5.0f;                                                                  // Player's speed.
+    public bool hasPowerup = false;                                                             // False - default setting.
     private float powerupStrength = 15.0f;
 
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>();                                              // Get the Rigidbody component of the player
-        focalPoint = GameObject.Find("Focal Point");                                       // Get the focal point of the camera
+        playerRb = GetComponent<Rigidbody>();
+        focalPoint = GameObject.Find("Focal Point");
     }
 
     void Update()
     {
-        float forwardInput = Input.GetAxis("Vertical");                                    // Get the vertical input from the keyboard
-        playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);            // Move the player forward/backward, relative to the focal point.
-        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+        float forwardInput = Input.GetAxis("Vertical");
+        playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);                 // Move the player forward/backward, relative to the focal point.
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);    // The indicator follows the player
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Powerup"))
         {
             hasPowerup = true;
-            Destroy(other.gameObject);
-            StartCoroutine(PowerupCountdownRoutine());
-            powerupIndicator.SetActive(true);
+            Destroy(other.gameObject);                                                          // Destruction of powerup.
+            StartCoroutine(PowerupCountdownRoutine());                                          // Wait for N seconds
+            powerupIndicator.SetActive(true);                                                   // Activate indicator visibility.
         }
     }
 
@@ -43,13 +43,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // In the event of a collision with a strengthened player, the enemy flies away.
         if (collision.gameObject.CompareTag("Enemy") && hasPowerup)
         {
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = collision.gameObject.transform.position - transform.position;
 
-            Debug.Log("Collided with " + collision.gameObject.name + " with powerup set to " + hasPowerup);
-            enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+            enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);         
         }
     }
 }
