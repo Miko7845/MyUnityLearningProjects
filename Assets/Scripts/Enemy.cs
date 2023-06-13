@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
     public float speed;                                                                             // Speed of the enemy
     private Rigidbody enemyRb;                                                                      // Rigidbody of the enemy
     private GameObject player;                                                                      // GameObject of the player
+    private float masterPower = 5.0f;
 
     void Start()
     {
@@ -21,6 +22,17 @@ public class Enemy : MonoBehaviour
         if (transform.position.y < -8)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("EnemyExpert"))
+        {
+            Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
+            Vector3 awayFromEnemy = collision.gameObject.transform.position - transform.position;
+
+            playerRb.AddForce(awayFromEnemy * masterPower, ForceMode.Impulse);
         }
     }
 }
