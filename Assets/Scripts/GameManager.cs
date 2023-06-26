@@ -17,16 +17,6 @@ public class GameManager : MonoBehaviour
     private int score;
     private float spawnRate = 1.0f;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     IEnumerator SpawnTarget()
     {
         while (isGameActive)
