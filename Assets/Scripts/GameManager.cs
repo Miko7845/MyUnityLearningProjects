@@ -12,12 +12,19 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI livesText;
     public Button restartButton;
+    public Slider volumeSlider;
     public GameObject titleScreen;
     internal bool isGameActive;
+    public AudioSource sound;
 
     private int score;
     private float spawnRate = 1.0f;
     private int lives = 3;
+
+    private void Start()
+    {
+        sound.volume = volumeSlider.value;
+    }
 
     IEnumerator SpawnTarget()
     {
@@ -72,5 +79,10 @@ public class GameManager : MonoBehaviour
         livesText.text = "Lives: " + lives;
 
         titleScreen.gameObject.SetActive(false);
+    }
+
+    public void AdjustMusicVolume()
+    {
+        sound.volume = volumeSlider.value;
     }
 }
