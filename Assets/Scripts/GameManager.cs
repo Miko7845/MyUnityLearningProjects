@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Slider volumeSlider;
     public GameObject titleScreen;
+    public GameObject pauseScreen;
     internal bool isGameActive;
     public AudioSource sound;
 
@@ -24,6 +25,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         sound.volume = volumeSlider.value;
+    }
+
+    void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
     }
 
     IEnumerator SpawnTarget()
@@ -84,5 +91,23 @@ public class GameManager : MonoBehaviour
     public void AdjustMusicVolume()
     {
         sound.volume = volumeSlider.value;
+    }
+
+    public void PauseGame()
+    {
+        if(isGameActive && Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+            sound.Pause();
+            pauseScreen.gameObject.SetActive(true);
+            isGameActive = false;
+        }
+        else if (!isGameActive && Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            sound.Play();
+            pauseScreen.gameObject.SetActive(false);
+            isGameActive = true;
+        }
     }
 }
