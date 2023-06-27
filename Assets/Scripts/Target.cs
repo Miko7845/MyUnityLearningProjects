@@ -24,7 +24,7 @@ public class Target : MonoBehaviour
         transform.position = RandomSpawnPos();
     }
 
-    private void OnMouseDown()
+    public void DestroyTarget()
     {
         if(gameManager.isGameActive)
         {
@@ -36,11 +36,14 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-
-        if (!gameObject.CompareTag("Bad"))
+        if (other.gameObject.CompareTag("Finish"))
         {
-            gameManager.PlayerDied();
+            Destroy(gameObject);
+
+            if (!gameObject.CompareTag("Bad"))
+            {
+                gameManager.PlayerDied();
+            }
         }
     }
 
