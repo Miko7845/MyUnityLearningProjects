@@ -2,8 +2,8 @@
 
 public class FollowPlayerX : MonoBehaviour
 {
-    public GameObject plane;
-    private Vector3 offset = new Vector3(30, 0, 10);
+    [SerializeField] GameObject plane;
+    [SerializeField] Vector3 offset = new Vector3(30, 0, 10);
 
     void LateUpdate()
     {

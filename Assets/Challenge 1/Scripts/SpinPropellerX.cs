@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpinPropellerX : MonoBehaviour
 {
-    private float rotationSpeed = 1000.0f;
+    [SerializeField] float rotationSpeed = 1000.0f;
 
     void Update()
     {
