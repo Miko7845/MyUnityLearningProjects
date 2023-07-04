@@ -3,11 +3,10 @@ using UnityEngine.UI;
 
 public class DifficultyButtonX : MonoBehaviour
 {
-    private Button button;
-    private GameManagerX gameManagerX;
-    public int difficulty;
+    [SerializeField] int difficulty;
+    Button button;
+    GameManagerX gameManagerX;
 
-    // Start is called before the first frame update
     void Start()
     {
         gameManagerX = GameObject.Find("Game Manager").GetComponent<GameManagerX>();

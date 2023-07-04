@@ -7,22 +7,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public List<GameObject> targets;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI gameOverText;
-    public TextMeshProUGUI livesText;
-    public Button restartButton;
-    public Slider volumeSlider;
-    public GameObject titleScreen;
-    public GameObject pauseScreen;
-    internal bool isGameActive;
-    public AudioSource sound;
+    [HideInInspector] public bool isGameActive;
 
-    private int score;
-    private float spawnRate = 1.0f;
-    private int lives = 3;
+    [SerializeField] List<GameObject> targets;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI gameOverText;
+    [SerializeField] TextMeshProUGUI livesText;
+    [SerializeField] Button restartButton;
+    [SerializeField] Slider volumeSlider;
+    [SerializeField] GameObject titleScreen;
+    [SerializeField] GameObject pauseScreen;
+    [SerializeField] AudioSource sound;
+    int score;
+    float spawnRate = 1.0f;
+    int lives = 3;
 
-    private void Start()
+    void Start()
     {
         sound.volume = volumeSlider.value;
     }
@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
         score = 0;
         lives = 3;
         spawnRate /= difficulty;
-
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
         livesText.text = "Lives: " + lives;

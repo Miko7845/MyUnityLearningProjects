@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2097,6 +2097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9b8e2409ebf2c4382a03bab8cd5caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 1627342661}
 --- !u!4 &974238379
 Transform:
   m_ObjectHideFlags: 0
@@ -3056,6 +3057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4585645110e93b42b08aa88c0eac378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameActive: 0
   targets:
   - {fileID: 7734684069550153190, guid: 2bc83adbf21ff584f8707f178b130458, type: 3}
   - {fileID: 7350871189623185313, guid: 4c658e38b05a6cc4eb4d5cf4d0fa3dd6, type: 3}

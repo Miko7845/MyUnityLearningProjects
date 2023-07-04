@@ -1,20 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetX : MonoBehaviour
 {
-    private Rigidbody rb;
-    private GameManagerX gameManagerX;
-    public int pointValue;
-    public GameObject explosionFx;
-
-    public float timeOnScreen = 1.0f;
-
-    private float minValueX = -3.75f; // the x value of the center of the left-most square
-    private float minValueY = -3.75f; // the y value of the center of the bottom-most square
-    private float spaceBetweenSquares = 2.5f; // the distance between the centers of squares on the game board
-    
+    [SerializeField] GameObject explosionFx;
+    [SerializeField] float timeOnScreen = 1.0f;
+    [SerializeField] int pointValue;
+    Rigidbody rb;
+    GameManagerX gameManagerX;
+    float minValueX = -3.75f;           // the x value of the center of the left-most square
+    float minValueY = -3.75f;           // the y value of the center of the bottom-most square
+    float spaceBetweenSquares = 2.5f;   // the distance between the centers of squares on the game board
 
     void Start()
     {
@@ -27,7 +23,7 @@ public class TargetX : MonoBehaviour
     }
 
     // When target is clicked, destroy it, update score, and generate explosion
-    private void OnMouseDown()
+    void OnMouseDown()
     {
         if (gameManagerX.isGameActive)
         {
@@ -36,6 +32,16 @@ public class TargetX : MonoBehaviour
             Explode();
         }
                
+    }
+
+    // If target that is NOT the bad object collides with sensor, trigger game over
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+        if (other.gameObject.CompareTag("Sensor") && !gameObject.CompareTag("Bad"))
+        {
+            gameManagerX.GameOver();
+        }
     }
 
     // Generate a random spawn position based on a random index from 0 to 3
@@ -55,19 +61,6 @@ public class TargetX : MonoBehaviour
         return Random.Range(0, 4);
     }
 
-
-    // If target that is NOT the bad object collides with sensor, trigger game over
-    private void OnTriggerEnter(Collider other)
-    {
-        Destroy(gameObject);
-
-        if (other.gameObject.CompareTag("Sensor") && !gameObject.CompareTag("Bad"))
-        {
-            gameManagerX.GameOver();
-        } 
-
-    }
-
     // Display explosion particle at object's position
     void Explode ()
     {
@@ -82,7 +75,5 @@ public class TargetX : MonoBehaviour
         {
             transform.Translate(Vector3.forward * 5, Space.World);
         }
-
     }
-
 }

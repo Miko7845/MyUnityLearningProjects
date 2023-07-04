@@ -2,26 +2,35 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    private Rigidbody targetRb;
-    private GameManager gameManager;
-    private float minSpeed = 12;
-    private float maxSpeed = 16;
-    private float maxTorque = 10;
-    private float xRange = 4;
-    private float ySpawnPos = -4;
-
-    public ParticleSystem explosionParticle;
-    public int pointValue;
+    [SerializeField] ParticleSystem explosionParticle;
+    [SerializeField] int pointValue;
+    Rigidbody targetRb;
+    GameManager gameManager;
+    readonly float minSpeed = 12;
+    readonly float maxSpeed = 16;
+    readonly float maxTorque = 10;
+    readonly float xRange = 4;
+    readonly float ySpawnPos = -4;
 
     void Start()
     {
         targetRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-
-
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
         transform.position = RandomSpawnPos();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            Destroy(gameObject);
+            if (!gameObject.CompareTag("Bad"))
+            {
+                gameManager.PlayerDied();
+            }
+        }
     }
 
     public void DestroyTarget()
@@ -31,19 +40,6 @@ public class Target : MonoBehaviour
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Finish"))
-        {
-            Destroy(gameObject);
-
-            if (!gameObject.CompareTag("Bad"))
-            {
-                gameManager.PlayerDied();
-            }
         }
     }
 

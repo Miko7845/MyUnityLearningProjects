@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 public class DifficultyButton : MonoBehaviour
 {
-    public int difficulty;
-
-    private Button button;
-    private GameManager gameManager;
+    [SerializeField] int difficulty;
+    Button button;
+    GameManager gameManager;
 
     void Start()
     {
@@ -16,7 +15,7 @@ public class DifficultyButton : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
-    private void SetDifficulty()
+    void SetDifficulty()
     {
         gameManager.StartGame(difficulty);
     }

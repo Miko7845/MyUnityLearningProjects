@@ -3,23 +3,20 @@ using UnityEngine;
 [RequireComponent(typeof(TrailRenderer), typeof(BoxCollider))]
 public class Swipe : MonoBehaviour
 {
-    private GameManager gameManager;
-    private Camera cam;
-    private Vector3 mousePosition;
-    private BoxCollider col;
-    private TrailRenderer trail;
-    private bool swiping = false;
+    [SerializeField] GameManager gameManager;
+    Camera cam;
+    Vector3 mousePosition;
+    BoxCollider col;
+    TrailRenderer trail;
+    bool swiping = false;
 
     void Awake()
     {
         cam = Camera.main;
         col = GetComponent<BoxCollider>();
         trail = GetComponent<TrailRenderer>();
-
         col.enabled = false;
         trail.enabled = false;
-
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -44,7 +41,7 @@ public class Swipe : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<Target>())
         {
