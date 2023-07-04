@@ -1,4 +1,3 @@
-# Unity-Learning-Projects
-Мои учебные проекты из официального курса Unity Learning и прочее.
+# My Unity Learning Projects.
 
-Все проекты разделены по веткам.
+All projects are divided into branches.
