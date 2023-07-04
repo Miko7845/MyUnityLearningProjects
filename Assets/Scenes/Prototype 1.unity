@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 757111122}
+  offset: {x: 0, y: 5, z: -7}
 --- !u!1001 &565148110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -674,6 +675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11cf1a9b18d5604d89240dc4b7246fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 15
+  turnSpeed: 12
 --- !u!54 &757111124
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1513,6 +1516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932776ed27b051c42bbc7fda434d1440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 15
 --- !u!54 &1846118998
 Rigidbody:
   m_ObjectHideFlags: 0
