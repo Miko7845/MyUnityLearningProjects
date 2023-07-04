@@ -1,22 +1,21 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody playerRb;
-    private Animator playerAnim;
-    private AudioSource playerAudio;
-    public ParticleSystem explosionParticle;
-    public ParticleSystem dirtParticle;
-    public AudioClip jumpSound;
-    public AudioClip crashSound;
-    public float jumpForce;
-    public float gravityModifier;
-    private int jumpCount = 0;
-    public float score = 0;
-    public bool gameOver { get; private set; } = false;
-    public Vector3 positionToMoveTo;
+    [HideInInspector] public Vector3 positionToMoveTo;
+    [HideInInspector] public bool gameOver = false;
+    [HideInInspector] public float score = 0;
+    [SerializeField] ParticleSystem explosionParticle;
+    [SerializeField] ParticleSystem dirtParticle;
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip crashSound;
+    [SerializeField] float jumpForce;
+    [SerializeField] float gravityModifier;
+    Rigidbody playerRb;
+    Animator playerAnim;
+    AudioSource playerAudio;
+    int jumpCount = 0;
 
     void Start()
     {
@@ -25,15 +24,8 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
         LerpFunction();
-
         playerAnim.speed = .5f;
         StartCoroutine(IntroPause());
-    }
-
-    IEnumerator IntroPause()
-    {
-        yield return new WaitForSeconds(3f);
-        playerAnim.speed = 1f;
     }
 
     void Update()
@@ -48,7 +40,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -65,6 +57,12 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
         }
+    }
+
+    IEnumerator IntroPause()
+    {
+        yield return new WaitForSeconds(3f);
+        playerAnim.speed = 1f;
     }
 
     IEnumerator LerpPosition(Vector3 targetPosition, float duration)

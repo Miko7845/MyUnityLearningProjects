@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RepeatBackground : MonoBehaviour
 {
-    private Vector3 startPos;
-    private float repeatWidth;
+    Vector3 startPos;
+    float repeatWidth;
 
     void Start()
     {
