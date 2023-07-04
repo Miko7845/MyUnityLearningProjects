@@ -3,24 +3,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody playerRb;
-    private GameObject focalPoint;                                                                  // Focal point of the camera
-    public GameObject powerupIndicator;                                                         
-    public float speed = 5.0f;                                                                      // Player's speed.
-    public bool hasPowerup = false;                                                                 // False - default setting.
-    private float powerupStrength = 15.0f;
-
-    public PowerUpType currentPowerUp = PowerUpType.None;
-    public GameObject bulletPrefab;
-    private GameObject tmpRocket;
-    private Coroutine powerupCountdown;
-
-    public float hangTime;
-    public float smashSpeed;
-    public float explosionForce;
-    public float explosionRadius;
-    bool smashing = false;
+    [SerializeField] PowerUpType currentPowerUp = PowerUpType.None;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject powerupIndicator;                                                         
+    [SerializeField] float speed = 5.0f;      // Player's speed.
+    [SerializeField] bool hasPowerup = false;     // False - default setting.
+    [SerializeField] float hangTime;
+    [SerializeField] float smashSpeed;
+    [SerializeField] float explosionForce;
+    [SerializeField] float explosionRadius;
+    GameObject tmpRocket;
+    Coroutine powerupCountdown;
+    Rigidbody playerRb;
+    GameObject focalPoint;      // Focal point of the camera
     float floorY;
+    float powerupStrength = 15.0f;
+    bool smashing = false;
 
     void Start()
     {
@@ -31,32 +29,28 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce((focalPoint.transform.forward).normalized * speed * forwardInput);            // Move the player forward/backward, relative to the focal point.
-        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);            // The indicator follows the player
-
+        playerRb.AddForce((focalPoint.transform.forward).normalized * speed * forwardInput);    // Move the player forward/backward, relative to the focal point.
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);    // The indicator follows the player
         if (currentPowerUp == PowerUpType.Bulllets && Input.GetKeyDown(KeyCode.LeftControl))
         {
             BulletShoot();
         }
-
         if (currentPowerUp == PowerUpType.Smash && Input.GetKeyDown(KeyCode.Space) && !smashing)
         {
             smashing = true;
             StartCoroutine(Smash());
         }
-
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Powerup"))
         {
             hasPowerup = true;
             currentPowerUp = other.gameObject.GetComponent<PowerUp>().powerUpType;
-            Destroy(other.gameObject);                                                                  // Destruction of powerup.
-            StartCoroutine(PowerupCountdownRoutine());                                                  // Wait for N seconds
-            powerupIndicator.SetActive(true);                                                           // Activate indicator visibility.
-
+            Destroy(other.gameObject);  // Destruction of powerup.
+            StartCoroutine(PowerupCountdownRoutine());  // Wait for N seconds
+            powerupIndicator.SetActive(true);   // Activate indicator visibility.
             if (powerupCountdown != null)
             {
                 StopCoroutine(powerupCountdown);
@@ -65,15 +59,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator PowerupCountdownRoutine()
-    {
-        yield return new WaitForSeconds(7);
-        hasPowerup = false;
-        currentPowerUp = PowerUpType.None;
-        powerupIndicator.SetActive(false);
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         // In the event of a collision with a strengthened player, the enemy flies away.
         if (collision.gameObject.CompareTag("Enemy") && currentPowerUp == PowerUpType.Pushback)
@@ -92,6 +78,14 @@ public class PlayerController : MonoBehaviour
             Quaternion.identity);
             tmpRocket.GetComponent<Bullet>().Fire(enemy.transform);
         }
+    }
+
+    IEnumerator PowerupCountdownRoutine()
+    {
+        yield return new WaitForSeconds(7);
+        hasPowerup = false;
+        currentPowerUp = PowerUpType.None;
+        powerupIndicator.SetActive(false);
     }
 
     IEnumerator Smash()
@@ -121,7 +115,6 @@ public class PlayerController : MonoBehaviour
                 enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce,
                 transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
         }
-        
-        smashing = false;                                                               //We are no longer smashing, so set the boolean to false
+        smashing = false;   //We are no longer smashing, so set the boolean to false
     }
 }

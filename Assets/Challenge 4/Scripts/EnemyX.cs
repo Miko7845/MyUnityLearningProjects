@@ -2,9 +2,9 @@
 
 public class EnemyX : MonoBehaviour
 {
-    private Rigidbody enemyRb;
-    private GameObject playerGoal;
-    private SpawnManagerX spawnManager;
+    Rigidbody enemyRb;
+    GameObject playerGoal;
+    SpawnManagerX spawnManager;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class EnemyX : MonoBehaviour
         enemyRb.AddForce(lookDirection * spawnManager.enemySpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision other)
     {
         // If enemy collides with either goal, destroy it
         if (other.gameObject.name == "Enemy Goal")

@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class RotateCamera : MonoBehaviour
 {
-    public float RotationSpeed;                                                             // Rotation speed of the camera
-
+    [SerializeField] float RotationSpeed;     // Rotation speed of the camera
 
     void Update()
     {
